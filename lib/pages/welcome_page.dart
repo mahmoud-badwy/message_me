@@ -13,7 +13,10 @@ class WelcomePage extends StatelessWidget {
           Image.asset('assets/images/logo.png'),
           const Text(
             'Message Me',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            ),
           ),
         ],
       ),

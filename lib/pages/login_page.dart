@@ -14,7 +14,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [],
+        children: const [Text('text')],
       )),
     );
   }

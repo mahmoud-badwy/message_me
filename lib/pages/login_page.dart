@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:message_me/pages/chat.dart';
+import 'package:message_me/widgets/my_text_field.dart';
+import 'package:message_me/widgets/mybutton.dart';
 
 class LoginPage extends StatefulWidget {
+  static String routename = 'signinscreen';
   const LoginPage({super.key});
 
   @override
@@ -23,9 +27,40 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 24,
+          ),
           child: Column(
-        children: const [Text('text')],
-      )),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 180,
+                child: Image.asset('assets/images/logo.png'),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              const MyTextField(),
+              const SizedBox(
+                height: 10,
+              ),
+              const MyTextField2(),
+              const SizedBox(
+                height: 40,
+              ),
+              MyButton(
+                  color: Colors.blue[800]!,
+                  onPressed: () {
+                    Navigator.pushNamed(context, ChatScreen.routename);
+                  },
+                  text: 'Sign in',
+                  padding: 10)
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:message_me/pages/login_page.dart';
+import 'package:message_me/pages/signup.dart';
 
 import '../widgets/mybutton.dart';
 
 class WelcomePage extends StatelessWidget {
+  static String routename = 'welcomescreen';
+
   const WelcomePage({super.key});
 
   @override
@@ -37,7 +41,7 @@ class WelcomePage extends StatelessWidget {
               text: 'Sign in',
               color: Colors.yellow[900]!,
               onPressed: () {
-                Navigator.pushNamed(context, 'signin');
+                Navigator.pushNamed(context, LoginPage.routename);
               },
               padding: 30,
             ),
@@ -45,7 +49,7 @@ class WelcomePage extends StatelessWidget {
               text: 'Sign up',
               color: Colors.blue[800]!,
               onPressed: () {
-                Navigator.pushNamed(context, 'signup');
+                Navigator.pushNamed(context, SignUpPage.routename);
               },
               padding: 0,
             )

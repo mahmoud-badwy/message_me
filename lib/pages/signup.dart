@@ -12,6 +12,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue[800],
         centerTitle: true,
         title: const Text('SignUp'),
         leading: IconButton(

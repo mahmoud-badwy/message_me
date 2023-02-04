@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:message_me/pages/chat.dart';
 import 'package:message_me/widgets/mybutton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Dataf {
   bool obscure = true;
@@ -19,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   late String email;
   late String password;
   Dataf data = Dataf();
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,8 +140,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               MyButton(
                   color: Colors.yellow[900]!,
-                  onPressed: () {
-                    Navigator.pushNamed(context, ChatScreen.routename);
+                  onPressed: () async {
+                    try {
+                      final user = await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      Navigator.pushNamed(context, ChatScreen.routename);
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                   text: 'Sign in',
                   padding: 10)

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:message_me/pages/welcome_page.dart';
 
 class ChatScreen extends StatefulWidget {
   static String routename = 'chatscreen';
@@ -11,7 +13,28 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   late String messagetext;
-  List<Widget> mlist = [];
+
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurruntUser();
+  }
+
+  void getCurruntUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+        print(signedInUser.email);
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +54,13 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              print('Logout succesful');
+            onPressed: () async {
+              try {
+                await _auth.signOut();
+                Navigator.pushNamed(context, WelcomePage.routename);
+              } catch (e) {
+                print(e);
+              }
             },
             icon: const Icon(Icons.logout_rounded),
           ),
@@ -43,11 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: mlist,
-              ),
-            ),
+            Container(),
             Container(
               height: 50,
               decoration: const BoxDecoration(
@@ -73,15 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      setState(() {
-                        if (messagetext == null) {
-                          mlist.add(Text(messagetext));
-                        } else {
-                          print('null');
-                        }
-                      });
-                    },
+                    onPressed: () {},
                     child: Text(
                       'send',
                       style: TextStyle(

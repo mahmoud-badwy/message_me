@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:message_me/pages/chat.dart';
 import 'package:message_me/widgets/mybutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class Dataf {
   bool obscure = true;
@@ -22,6 +23,7 @@ class _SignUpPageState extends State<SignUpPage> {
   late String password;
   Dataf data = Dataf();
   final _auth = FirebaseAuth.instance;
+  bool showSpinner = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +38,8 @@ class _SignUpPageState extends State<SignUpPage> {
           },
         ),
       ),
-      body: SafeArea(
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 24,
@@ -52,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(
                 height: 50,
               ),
-              TextField(
+              TextFormField(
                 textAlign: TextAlign.center,
                 onChanged: (value) {
                   email = value;
@@ -86,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(
                 height: 10,
               ),
-              TextField(
+              TextFormField(
                 textAlign: TextAlign.center,
                 onChanged: (value) {
                   password = value;
@@ -140,13 +143,19 @@ class _SignUpPageState extends State<SignUpPage> {
               MyButton(
                   color: Colors.blue[800]!,
                   onPressed: () async {
+                    setState(() {
+                      showSpinner = true;
+                    });
                     try {
                       final user = await _auth.createUserWithEmailAndPassword(
                           email: email, password: password);
                       // ignore: use_build_context_synchronously
                       Navigator.pushNamed(context, ChatScreen.routename);
-                    } catch (e) {
-                      print(e);
+                      setState(() {
+                        showSpinner = false;
+                      });
+                    } on FirebaseAuthException catch (e) {
+                      print(e.message);
                     }
                   },
                   text: 'Sign Up',

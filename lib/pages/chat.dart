@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:message_me/pages/welcome_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
   static String routename = 'chatscreen';
@@ -16,6 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
+  final firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {

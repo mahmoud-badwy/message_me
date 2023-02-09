@@ -17,7 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
-  final firestore = FirebaseFirestore.instance;
+  final _firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -34,6 +34,13 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     } catch (error) {
       print(error);
+    }
+  }
+
+  void getmessages() async {
+    final messages = await _firestore.collection('messages').get();
+    for (var message in messages.docs) {
+      print(message.data());
     }
   }
 
@@ -65,6 +72,12 @@ class _ChatScreenState extends State<ChatScreen> {
               }
             },
             icon: const Icon(Icons.logout_rounded),
+          ),
+          IconButton(
+            onPressed: () {
+              getmessages();
+            },
+            icon: const Icon(Icons.download),
           ),
         ],
       ),
@@ -99,7 +112,12 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await _firestore.collection("messages").add({
+                        'text': messagetext,
+                        'sender': signedInUser.email,
+                      });
+                    },
                     child: Text(
                       'send',
                       style: TextStyle(

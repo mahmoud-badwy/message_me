@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:message_me/pages/login_page.dart';
-import 'package:message_me/pages/signup.dart';
+import 'package:message_me/view/screens/login_page.dart';
+import 'package:message_me/view/screens/signup.dart';
 
-import '../widgets/mybutton.dart';
+import 'widgets/mybutton.dart';
 
 class WelcomePage extends StatelessWidget {
   static String routename = 'welcomescreen';

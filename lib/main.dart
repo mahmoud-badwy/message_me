@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:message_me/pages/login_page.dart';
-import 'package:message_me/pages/signup.dart';
-import 'package:message_me/pages/chat.dart';
-import 'package:message_me/pages/welcome_page.dart';
+import 'package:message_me/view/screens/login_page.dart';
+// import 'package:message_me/screens/login_page.dart';
+// import 'package:message_me/screens/signup.dart';
+// import 'package:message_me/screens/chat.dart';
+// import 'package:message_me/screens/welcome_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -21,17 +22,9 @@ class MainApp extends StatelessWidget {
   MainApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: _auth.currentUser != null
-          ? ChatScreen.routename
-          : WelcomePage.routename,
-      routes: {
-        WelcomePage.routename: (context) => const WelcomePage(),
-        LoginPage.routename: (context) => const LoginPage(),
-        SignUpPage.routename: (context) => const SignUpPage(),
-        ChatScreen.routename: (context) => const ChatScreen(),
-      },
+      home: LoginPage(),
     );
   }
 }

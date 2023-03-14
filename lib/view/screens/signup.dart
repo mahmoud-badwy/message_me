@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:message_me/pages/chat.dart';
-import 'package:message_me/widgets/mybutton.dart';
+import 'package:message_me/view/screens/chat.dart';
+import 'package:message_me/view/widgets/mybutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
